@@ -22,7 +22,6 @@
   "browserslist": "> 0.25%, not dead",
   "devDependencies": {
     "@babel/core": "^7.8.4",
-    "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.0.6",
@@ -41,5 +40,8 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/polyfill": "^7.8.3",
+    "normalize.css": "^8.0.1"
+  }
 }
