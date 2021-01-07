@@ -1,8 +1,8 @@
 const path = require('path');
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
-const CopyPlugin = require("copy-webpack-plugin")
+const CopyPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const isProd = process.env.NODE_ENV === 'production'
@@ -15,9 +15,10 @@ const jsLoaders = () => {
     {
       loader: 'babel-loader',
       options: {
-        presets: ['@babel/preset-env']
-      }
-    }
+        presets: ['@babel/preset-env'],
+        plugins: ['@babel/plugin-proposal-class-properties'],
+      },
+    },
   ]
 
   if (isDev) {
@@ -26,9 +27,6 @@ const jsLoaders = () => {
 
   return loaders
 }
-
-console.log('is prod', isProd);
-console.log('is dev', isDev);
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
@@ -43,12 +41,12 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@core': path.resolve(__dirname, 'src/core'),
-    }
+    },
   },
   devtool: isDev ? 'source-map' : false,
   devServer: {
     port: 3000,
-    hot: isDev
+    hot: isDev,
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -56,8 +54,8 @@ module.exports = {
       template: 'index.html',
       minify: {
         removeComments: isProd,
-        collapseWhitespace: isProd
-      }
+        collapseWhitespace: isProd,
+      },
     }),
     new CopyPlugin([
       {
@@ -66,8 +64,8 @@ module.exports = {
       },
     ]),
     new MiniCssExtractPlugin({
-      filename: filename('css')
-    })
+      filename: filename('css'),
+    }),
   ],
   module: {
     rules: [
@@ -78,18 +76,18 @@ module.exports = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               hmr: isDev,
-              reloadAll: true
-            }
+              reloadAll: true,
+            },
           },
-          "css-loader",
-          "sass-loader",
+          'css-loader',
+          'sass-loader',
         ],
       },
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: jsLoaders()
-      }
+        use: jsLoaders(),
+      },
     ],
-  }
+  },
 }
